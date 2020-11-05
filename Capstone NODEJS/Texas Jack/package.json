@@ -1,0 +1,16 @@
+{
+  "name": "texas-jack",
+  "version": "1.0.0",
+  "description": "Texas Jack Web App Node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luis Moran",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1"
+  }
+}
