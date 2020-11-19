@@ -1,7 +1,10 @@
 const express = require("express"); 
 const bodyParser = require("body-parser"); 
 const mongoose = require("mongoose");
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 
 const app = express(); 
 
