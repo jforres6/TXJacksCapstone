@@ -4,29 +4,12 @@ const mongoose = require("mongoose");
 
 const app = express(); 
 
-app.set('view engine', 'ejs'); 
-
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(express.static("public"));
-
-app.get("/", function(req, res){
-    res.render("login");
-})
-
-app.get("/home", function(req, res){
-    res.render("home")
-})
-
-app.listen(3000, function() {
-    console.log("Server started on port 3000");
-})
-
-
+mongoose.Promise = global.Promise;
 mongoose.connect("mongodb+srv://TJUser1:TexasJackMongoDB@cluster0.b04vt.mongodb.net/TESTDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var employeeSchema = new Schema({
+const employeeSchema = new Schema({
     ID: Number,
     f_name: String,
     l_name: String,
@@ -38,19 +21,27 @@ var employeeSchema = new Schema({
     email: String
 });
 
-mongoose.model('EmployeeInformation', employeeSchema, 'EmployeeInformation');
+const EmployeeModel = mongoose.model('EmployeeInformation', employeeSchema, 'EmployeeInformation');
 
-  app.get('/EmployeeInformation', function(req, res) {
-      mongoose.model('EmployeeInformation').find({ID: { $gt : 0, $lt : 11}}, function(err, EmployeeInformation) {
-          res.send(EmployeeInformation);
-      });
-  });
+app.set('view engine', 'ejs'); 
 
-  var EmployeeInformation = mongoose.model('EmployeeInformation', employeeSchema)
-  EmployeeInformation.find({f_name: 'Ryan'}, {'l_name def_pos':1, '_id':0}, (error, data) => {
-      if(error){
-          console.log(error)
-      } else{
-          console.log(data)
-      }
-  })
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(express.static("public"));
+
+app.get("/", function(req, res){
+    res.render("login");
+})
+
+app.get("/home", function(req, res) {
+    EmployeeModel.find({}, function(err, data){
+        res.render("home", { Employee: data});
+    });
+});
+
+
+app.listen(3000, function() {
+    console.log("Server started on port 3000");
+})
+
+
+

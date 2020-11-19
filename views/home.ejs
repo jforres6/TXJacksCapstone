@@ -77,109 +77,25 @@
                     <button class="btn btn-primary">Search</button>
                 </div>
                   </div>
+                 
+            <% for (var i = 0; i < Employee.length; i++) { %>
             <div class="row">
-
-                <div class="card col-3">
-                    <div class="card-body">
-                    <h5 class="card-title">Jane Doe</h5>
-                    <p class="card-text">Position: Waiter </p>
-                    <p class="card-text">Phone Number: 703-111-1111 </p>
-                    <p class="card-text">Email: janedoe@gmail.com</p>
-                    <a href="#" class="btn btn-primary">View Profile</a>
-                    </div>
-                </div>
-
-                <div class="card col-3">
-                    <div class="card-body">
-                    <h5 class="card-title">Jane Doe</h5>
-                    <p class="card-text">Position: Waiter </p>
-                    <p class="card-text">Phone Number: 703-111-1111 </p>
-                    <p class="card-text">Email: janedoe@gmail.com</p>
-                    <a href="#" class="btn btn-primary">View Profile</a>
-                    </div>
-                </div>
-
-                <div class="card col-3">
-                    <div class="card-body">
-                    <h5 class="card-title">Jane Doe</h5>
-                    <p class="card-text">Position: Waiter </p>
-                    <p class="card-text">Phone Number: 703-111-1111 </p>
-                    <p class="card-text">Email: janedoe@gmail.com</p>
-                    <a href="#" class="btn btn-primary">View Profile</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="card col-3">
-                    <div class="card-body">
-                    <h5 class="card-title">Jane Doe</h5>
-                    <p class="card-text">Position: Waiter </p>
-                    <p class="card-text">Phone Number: 703-111-1111 </p>
-                    <p class="card-text">Email: janedoe@gmail.com</p>
-                    <a href="#" class="btn btn-primary">View Profile</a>
-                    </div>
-                </div>
-
-                <div class="card col-3">
-                    <div class="card-body">
-                    <h5 class="card-title">Jane Doe</h5>
-                    <p class="card-text">Position: Waiter </p>
-                    <p class="card-text">Phone Number: 703-111-1111 </p>
-                    <p class="card-text">Email: janedoe@gmail.com</p>
-                    <a href="#" class="btn btn-primary">View Profile</a>
-                    </div>
-                </div>
-
-                <div class="card col-3">
-                    <div class="card-body">
-                    <h5 class="card-title">Jane Doe</h5>
-                    <p class="card-text">Position: Waiter </p>
-                    <p class="card-text">Phone Number: 703-111-1111 </p>
-                    <p class="card-text">Email: janedoe@gmail.com</p>
-                    <a href="#" class="btn btn-primary">View Profile</a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="card col-3">
-                    <div class="card-body">
-                    <h5 class="card-title">Jane Doe</h5>
-                    <p class="card-text">Position: Waiter </p>
-                    <p class="card-text">Phone Number: 703-111-1111 </p>
-                    <p class="card-text">Email: janedoe@gmail.com</p>
-                    <a href="#" class="btn btn-primary">View Profile</a>
-                    </div>
-                </div>
-
-                <div class="card col-3">
-                    <div class="card-body">
-                    <h5 class="card-title">Jane Doe</h5>
-                    <p class="card-text">Position: Waiter </p>
-                    <p class="card-text">Phone Number: 703-111-1111 </p>
-                    <p class="card-text">Email: janedoe@gmail.com</p>
-                    <a href="#" class="btn btn-primary">View Profile</a>
-                    </div>
-                </div>
                 
                 <div class="card col-3">
                     <div class="card-body">
-                    <h5 class="card-title">Jane Doe</h5>
-                    <p class="card-text">Position: Waiter </p>
-                    <p class="card-text">Phone Number: 703-111-1111 </p>
-                    <p class="card-text">Email: janedoe@gmail.com</p>
+                    <h5 class="card-title"><%= Employee[i].f_name + " " + Employee[i].l_name %></h5>
+                    <p class="card-text">Position: <%= Employee[i].def_pos %> </p>
+                    <p class="card-text">Phone Number: <%= Employee[i].cell_num %> </p>
+                    <p class="card-text">Email: <%= Employee[i].email %></p>
                     <a href="#" class="btn btn-primary">View Profile</a>
                     </div>
                 </div>
-            </div>
 
+                
+            </div>
+            <% } %>
         </div>
 
       </div>
-
-
-
 </body>
 </html>
