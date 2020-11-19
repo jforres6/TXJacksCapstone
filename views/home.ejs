@@ -21,7 +21,6 @@ function formatPhoneNumber(phoneNumberString) {
     }
     return null
   }
-
   function formatDate(dateString) {
     var date = dateString.substr(0,2) + dateString.substr(2,4) + dateString.substr(4,8);
     return date
@@ -43,7 +42,6 @@ function formatPhoneNumber(phoneNumberString) {
             <h3> employee stuff</h3>
             <h4> add employee button?</h4>
         </div>
-
         <div class="sidebar">
             <img src="../img/testing.webp" alt="logo">
             <a href="#home">Home</a>
@@ -93,9 +91,9 @@ function formatPhoneNumber(phoneNumberString) {
                 </div>
                   </div>
                  
-            <% for (var i = 0; i < Employee.length; i++) { %>
+            
             <div class="row">
-                
+                <% for (var i = 0; i < Employee.length; i++) { %>    
                 <div class="card col-3">
                     <div class="card-body">
                     <h5 class="card-title"><%= Employee[i].f_name + " " + Employee[i].l_name %></h5>
@@ -105,10 +103,9 @@ function formatPhoneNumber(phoneNumberString) {
                     <a href="#" class="btn btn-primary">View Profile</a>
                     </div>
                 </div>
-
-                
+                <% } %>    
             </div>
-            <% } %>
+            
         </div>
 
       </div>

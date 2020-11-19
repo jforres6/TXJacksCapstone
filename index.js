@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const app = express(); 
 
-mongoose.Promise = global.Promise;
+
 mongoose.connect("mongodb+srv://TJUser1:TexasJackMongoDB@cluster0.b04vt.mongodb.net/TESTDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 
 const Schema = mongoose.Schema;
