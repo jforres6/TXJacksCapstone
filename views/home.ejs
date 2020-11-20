@@ -21,10 +21,6 @@ function formatPhoneNumber(phoneNumberString) {
     }
     return null
   }
-  function formatDate(dateString) {
-    var date = dateString.substr(0,2) + dateString.substr(2,4) + dateString.substr(4,8);
-    return date
-  }
   %>
 
 <body>
@@ -70,40 +66,43 @@ function formatPhoneNumber(phoneNumberString) {
             <h2 class="text-center">Employee Directory</h1>
                 <div class="card search">
                     <h5 class="card-header">Employee Search</h5>
+                
                 <div class="card-body">
+                <form action="/home" method="GET">
                     <div class="row">
                      <div class="col-5">
                         <h5 class="card-title">Employee ID</h5>
-                        <input type="text">
+                        <input type="text" name = "empID">
                      </div>
                      <div class="col-2">
                          <h5>OR</h5>
                      </div>
                       <div class="col-5">
                         <h6 class="card-title">First Name</h6>
-                        <input type="text" name="" id="">
+                        <input type="text" name = "firstName">
                         <h6 class="card-title" style="padding-top: 7px;">Last Name</h6>
-                        <input type="text">
+                        <input type="text" name = "lastName">
                       </div>
-                      
-                    </div>
-                    <button class="btn btn-primary">Search</button>
+                     </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
                 </div>
-                  </div>
-                 
-            
+                
+            </div>
+                            
             <div class="row">
-                <% for (var i = 0; i < Employee.length; i++) { %>    
+  
+                <% Employees.forEach(Employee => { %>    
                 <div class="card col-3">
                     <div class="card-body">
-                    <h5 class="card-title"><%= Employee[i].f_name + " " + Employee[i].l_name %></h5>
-                    <p class="card-text">Position: <%= Employee[i].def_pos %> </p>
-                    <p class="card-text">Phone Number: <%= formatPhoneNumber(Employee[i].cell_num) %> </p>
-                    <p class="card-text">Email: <%= Employee[i].email %></p>
-                    <a href="#" class="btn btn-primary">View Profile</a>
+                    <h5 class="card-title"><%= Employee.f_name + " " + Employee.l_name %></h5>
+                    <p class="card-text">Position: <%= Employee.def_pos %> </p>
+                    <p class="card-text">Phone Number: <%= formatPhoneNumber(Employee.cell_num) %> </p>
+                    <p class="card-text">Email: <%= Employee.email %></p>
+                    <a href="/<%= Employee.id %>" class="btn btn-primary">View Profile</a>
                     </div>
                 </div>
-                <% } %>    
+                <% }) %>    
             </div>
             
         </div>
