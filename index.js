@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const app = express(); 
 
 
-mongoose.connect("mongodb+srv://TJUser1:TexasJackMongoDB@cluster0.b04vt.mongodb.net/TESTDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://TJUser1:TexasJackMongoDB@cluster0.b04vt.mongodb.net/TexasJacksDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 
 const Schema = mongoose.Schema;
 
@@ -32,15 +32,29 @@ app.get("/", function(req, res){
     res.render("login");
 })
 
-app.get("/home", function(req, res) {
-    EmployeeModel.find({}, function(err, data){
-        res.render("home", { Employee: data});
-    });
+app.get("/home", async function(req, res) {
+    if (req.query.empID != null && req.query.empID !== ""){
+        const Employee = await EmployeeModel.find({ID: req.query.empID})
+        res.render("home", { Employees: Employee});
+    } else if ((req.query.firstName != null && req.query.firstName !== "") && (req.query.lastName != null && req.query.lastName !== "")) {
+        const Employee = await EmployeeModel.find({f_name: req.query.firstName, l_name: req.query.lastName})
+        res.render("home", { Employees: Employee});
+    } else{
+        const Employee = await EmployeeModel.find()
+        res.render("home", { Employees: Employee});
+    }
+    
+});
+
+app.get("/:id", async function(req, res) {
+    try{
+    const Employees = await EmployeeModel.findById(req.params.id)
+        res.render("profile", { Employees: Employees});
+    }catch (err){
+        console.log(err);
+    }
 });
 
 app.listen(3000, function() {
     console.log("Server started on port 3000");
 })
-
-
-
