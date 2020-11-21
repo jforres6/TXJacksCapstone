@@ -1,89 +1,3 @@
-/* * {
-    box-sizing: border-box; 
-  }
-  body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    margin: 0;
-  }
-  #main {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-  }
-  #main > .employee {
-    flex: 1;
-    text-align: center;
-    margin-left: -200px;
-  }
-
-  .employee .title{
-      margin-top: 5vw;
-      margin-bottom: 5vw;
-  }
-
-
-
-  #main > .sidebar, 
-
-  #main > .sidebar {
-    order: -1;
-  }
-
-  @media screen and (min-width: 576px) {
-    #main {
-      flex-direction: row;
-    }
-    #main > .sidebar, 
-    #main > aside {
-      flex: 0 0 15vw;
-    }  
-    .employee{
-        text-align: center;
-    }
-  }
-
-  .sidebar{
-    display: flex;
-    flex-direction: column;
-    padding: 0px;
-    margin: 0px;
-    width: 200px;
-}
-.sidebar img{
-    width: 100%;
-}   
-.sidebar a {
-    display: block;
-    color: black;
-    padding: 16px;
-    margin-top: 30px; 
-    text-decoration: none;
-    
-  }
-  .sidebar a.active {
-    background-color: blue;
-    color: white;
-  }
-  
-  .sidebar a:hover:not(.active) {
-    background-color: lightgray;
-    color:black;
-  }
-
-  @media screen and (max-width: 700px) {
-    .sidebar {
-      width: 100%;
-      height: auto;
-      position: relative;
-      text-align: center;
-    }
-    .sidebar a {float: left;}
-    div.content {margin-left: 0;}
-
-  } */
-
 /*    LUIS STYLE */
 body{
   background-color: #f1f6f9;
@@ -92,22 +6,23 @@ body{
   padding-right: 0;
   padding-left: 0;
   padding-top: 0;
+  max-width: 250px;
 }
+
 .logo{
-  width: 100%;
   text-align: center;
+  background-color: #1275bc;
 }
 
-
-.container img{
+img{
+  height:100px;
   width: 100%;
-  height: 8%;
 }
+
 .sections{
   padding-top: 1vh;
-  background-color: #1275bc;
   color: #ffffff;
-  height: 100%;
+  height: 100vh;
 }
 
 ul.links{
@@ -130,15 +45,43 @@ li{
 }
 .search{
   width: 60%;
+  max-width: 700px;
 }
-.card{
+.search{
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 15px;
 }
 
+
+.directory{
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+.emp{
+  padding: 0;
+}
+
+.employee{
+  /* margin: 15px; */
+}
+
 .btn-primary{
   background-color:  #1275bc;
+}
+
+/* Profile Page */
+
+.prof{
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prof-section{
+  height: 100vh;
 }
 
