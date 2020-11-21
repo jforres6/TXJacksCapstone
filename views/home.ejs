@@ -47,9 +47,10 @@ function formatPhoneNumber(phoneNumberString) {
             </div>
         </div>
 
-        <div class="container directory col">
+        <div class="container col emp">
+          <div class="container directory">
             <h2 class="text-center">Employee Directory</h2>
-            <div class="shadow card search">
+            <div class="shadow card search mx-auto">
                     <h5 class="card-header">Employee Search</h5>
                 
                 <div class="card-body">
@@ -76,12 +77,12 @@ function formatPhoneNumber(phoneNumberString) {
                 </div>
                 
             </div>
-                            
-            <div class="row">
+                    
+          <div class="container employee-cards mx-auto">
+            <div class="row mx-auto">
 
-  
                 <% Employees.forEach(Employee => { %>    
-                <div class="employee card shadow col-3">
+                <div class="employee card shadow col-3 mx-4 my-4">
                     <div class="card-body">
                     <h5 class="card-title"><%= Employee.f_name + " " + Employee.l_name %></h5>
                     <p class="card-text">Position: <%= Employee.def_pos %> </p>
@@ -93,8 +94,11 @@ function formatPhoneNumber(phoneNumberString) {
                 </div>
                 <% }) %>    
             </div>
+          </div>
             
-        </div>
+        </div>   
+        
+    </div>
 
     </body>
 </html>
