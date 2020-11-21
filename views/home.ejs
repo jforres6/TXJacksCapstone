@@ -33,25 +33,8 @@ function formatPhoneNumber(phoneNumberString) {
 
     <div class="row">
        
-<<<<<<< HEAD
-=======
-        <!-- <div class ="employee">
-            <h1 class="title"> Employee Information</h1>
-            <h3> employee stuff</h3>
-            <h4> add employee button?</h4>
-        </div>
-        <div class="sidebar">
-            <img src="../img/testing.webp" alt="logo">
-            <a href="#home">Home</a>
-            <a href="#employees">Employees</a>
-            <a href="#news">News & Events</a>
-            <a href="about">About</a>
-            <a href="#settings">Settings</a>
-        </div> -->
-
->>>>>>> master
         <div class="logo container col-2">
-            <img src="../img/testing.webp" alt="logo">
+            <img class="pic" src="../img/testing.webp" alt="logo">
             <div class="container sections">
 
                 <ul class="links">
@@ -61,13 +44,12 @@ function formatPhoneNumber(phoneNumberString) {
                     <li>About</li>
                     <li>Settings</li>
                 </ul>
-
             </div>
         </div>
 
         <div class="container directory col">
-            <h2 class="text-center">Employee Directory</h1>
-                <div class="shadow card search">
+            <h2 class="text-center">Employee Directory</h2>
+            <div class="shadow card search">
                     <h5 class="card-header">Employee Search</h5>
                 
                 <div class="card-body">
@@ -99,7 +81,7 @@ function formatPhoneNumber(phoneNumberString) {
 
   
                 <% Employees.forEach(Employee => { %>    
-                <div class="card col-3">
+                <div class="employee card shadow col-3">
                     <div class="card-body">
                     <h5 class="card-title"><%= Employee.f_name + " " + Employee.l_name %></h5>
                     <p class="card-text">Position: <%= Employee.def_pos %> </p>
@@ -113,6 +95,6 @@ function formatPhoneNumber(phoneNumberString) {
             </div>
             
         </div>
-        
+
     </body>
 </html>

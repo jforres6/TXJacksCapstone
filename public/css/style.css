@@ -1,9 +1,20 @@
 
 body{
-    background-image: url("../img/texasPic.webp");
+    margin: 0;
+    /* background-image: url("../img/texasPic.webp"); */
 }
+
+main{
+    background-image: url("../img/texasPic.webp");
+    background-size: cover;
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+}
+
 .login{
-    width: 40%;
+    width: 500px;
+    height: 325px;
     padding: 2%;
     margin-top: 18%;
     margin-right: auto;
