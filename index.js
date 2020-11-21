@@ -5,29 +5,12 @@ const mongoose = require("mongoose");
 
 const app = express(); 
 
-app.set('view engine', 'ejs'); 
 
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(express.static("public"));
+mongoose.connect("mongodb+srv://TJUser1:TexasJackMongoDB@cluster0.b04vt.mongodb.net/TexasJacksDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 
-app.get("/", function(req, res){
-    res.render("login");
-})
+const Schema = mongoose.Schema;
 
-app.get("/home", function(req, res){
-    res.render("home")
-})
-
-app.listen(3000, function() {
-    console.log("Server started on port 3000");
-})
-
-
-mongoose.connect("mongodb+srv://TJUser1:TexasJackMongoDB@cluster0.b04vt.mongodb.net/TESTDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
-
-var Schema = mongoose.Schema;
-
-var employeeSchema = new Schema({
+const employeeSchema = new Schema({
     ID: Number,
     f_name: String,
     l_name: String,
@@ -39,19 +22,40 @@ var employeeSchema = new Schema({
     email: String
 });
 
-mongoose.model('EmployeeInformation', employeeSchema, 'EmployeeInformation');
+const EmployeeModel = mongoose.model('EmployeeInformation', employeeSchema, 'EmployeeInformation');
 
-  app.get('/EmployeeInformation', function(req, res) {
-      mongoose.model('EmployeeInformation').find({ID: { $gt : 0, $lt : 11}}, function(err, EmployeeInformation) {
-          res.send(EmployeeInformation);
-      });
-  });
+app.set('view engine', 'ejs'); 
 
-  var EmployeeInformation = mongoose.model('EmployeeInformation', employeeSchema)
-  EmployeeInformation.find({f_name: 'Ryan'}, {'l_name def_pos':1, '_id':0}, (error, data) => {
-      if(error){
-          console.log(error)
-      } else{
-          console.log(data)
-      }
-  })
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(express.static("public"));
+
+app.get("/", function(req, res){
+    res.render("login");
+})
+
+app.get("/home", async function(req, res) {
+    if (req.query.empID != null && req.query.empID !== ""){
+        const Employee = await EmployeeModel.find({ID: req.query.empID})
+        res.render("home", { Employees: Employee});
+    } else if ((req.query.firstName != null && req.query.firstName !== "") && (req.query.lastName != null && req.query.lastName !== "")) {
+        const Employee = await EmployeeModel.find({f_name: req.query.firstName, l_name: req.query.lastName})
+        res.render("home", { Employees: Employee});
+    } else{
+        const Employee = await EmployeeModel.find()
+        res.render("home", { Employees: Employee});
+    }
+    
+});
+
+app.get("/:id", async function(req, res) {
+    try{
+    const Employees = await EmployeeModel.findById(req.params.id)
+        res.render("profile", { Employees: Employees});
+    }catch (err){
+        console.log(err);
+    }
+});
+
+app.listen(3000, function() {
+    console.log("Server started on port 3000");
+})
