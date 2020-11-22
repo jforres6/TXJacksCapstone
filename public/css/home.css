@@ -2,6 +2,15 @@
 body{
   background-color: #f1f6f9;
 }
+
+a{
+  color: #ffffff;
+  text-decoration: none;
+}
+a:hover{
+  color: #ffffff;
+}
+
 .col-2{
   padding-right: 0;
   padding-left: 0;
@@ -35,6 +44,7 @@ li{
   padding-bottom: 10px;
 }
 
+
 .text-center{
   padding-top:10px;
   padding-bottom:10px;
@@ -65,12 +75,19 @@ li{
   padding: 0;
 }
 
-.employee{
-  /* margin: 15px; */
+.emp-cards{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .btn-primary{
   background-color:  #1275bc;
+}
+
+.btn{
+  margin-top: 10px;
 }
 
 /* Profile Page */
@@ -85,3 +102,6 @@ li{
   height: 100vh;
 }
 
+.prof-btn{
+  margin-left: 10px;
+}
