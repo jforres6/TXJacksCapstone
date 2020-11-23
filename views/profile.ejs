@@ -66,6 +66,9 @@ function formatPhoneNumber(phoneNumberString) {
                             <% } %>
                             <a href="/home" class="btn btn-primary">Back</a>
                             <a href="/<%= Employees.id %>/modify" class="btn btn-primary prof-btn">Modify</a>
+                            <form method="POST" action="<%= Employees.id %>?_method=DELETE">
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </form>
                         </div>
                     </div> 
                 
