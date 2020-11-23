@@ -46,7 +46,7 @@ function formatPhoneNumber(phoneNumberString) {
         </div>
 
         <div class="container directory col">
-            <h2 class="text-center">Employee Profile</h1>
+            <h2 class="text-center">Employee Profile</h2>
                     <div class="card shadow col prof">
                         <div class="card-body profile">
                             <h4 class="card-title"><%= Employees.f_name + " " + Employees.l_name %></h5>
@@ -59,10 +59,16 @@ function formatPhoneNumber(phoneNumberString) {
                             <% } %>
                             <p class="card-text"><b>Email:</b> <%= Employees.email %></p>
                             <% if (Employees.active) { %>
-                            <p class="card-text"><b>Employee is:</b> active</p>
+                            <p class="card-text"><b>Employee is active</b></p>
+                            <% } %>
+                            <% if (!Employees.active) { %>
+                                <p class="card-text"><b>Employee is not active</b></p>
                             <% } %>
                             <a href="/home" class="btn btn-primary">Back</a>
-                            <a href="" class="btn btn-primary prof-btn">Modify</a>
+                            <a href="/<%= Employees.id %>/modify" class="btn btn-primary prof-btn">Modify</a>
+                            <form method="POST" action="<%= Employees.id %>?_method=DELETE">
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </form>
                         </div>
                     </div> 
                 
