@@ -29,11 +29,17 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser()); 
 passport.deserializeUser(User.deserializeUser()); 
 
-app.get("/",function(req,res){
-    res.render("open");
+//Open login page
+app.get("/", function(req, res){
+    res.render("login");
 });
 
-//Display Employees
+//Open register page
+app.get("/register", function(req,res){
+    res.render("register");
+})
+
+//Open home page and display employees
 app.get("/home", isLoggedIn, async function(req, res) {
     if (req.query.empID != null && req.query.empID !== ""){
         const Employee = await EmployeeModel.find({ID: req.query.empID})
@@ -48,10 +54,24 @@ app.get("/home", isLoggedIn, async function(req, res) {
     
 });
 
-app.get("/register", function(req,res){
-    res.render("register");
+//Open settings page
+app.get("/settings",function(req,res){
+    res.render("settings");
+});
+
+//Logout of web app
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/");
 })
 
+//Process login
+app.post("/login", passport.authenticate("local", { 
+    successRedirect: "/home", 
+    failureRedirect: "/login"
+}));
+
+//Process registration
 app.post("/register", function(req, res){
     User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
             if(err) {
@@ -64,27 +84,11 @@ app.post("/register", function(req, res){
 });
 });
 
-app.get("/login", function(req, res){
-    res.render("login");
-});
-
-app.post("/login", passport.authenticate("local", { 
-    successRedirect: "/home", 
-    failureRedirect: "/login"
-}));
-
-app.get("/logout", function(req, res){
-    req.logout();
-    res.redirect("/");
-})
-
-
-//New Employees
+//Add Employees
 app.get("/add", function(req,res){
     res.render("add", { Employees: new EmployeeModel()});
 });
 
-//Add Employees
 app.post("/home", async function(req, res){
     const Employees = new EmployeeModel({
         ID: req.body.empID,
@@ -119,7 +123,7 @@ app.get("/:id", async function(req, res) {
     }
 });
 
-//Modify Employee
+//Modify employee
 app.get("/:id/modify", async function(req, res){
     try {
         const Employees = await EmployeeModel.findById(req.params.id);
@@ -161,6 +165,7 @@ app.put("/:id", async function(req, res){
     }
 });
 
+//Delete employee
 app.delete("/:id", async function(req, res){
     let Employees
     try {
@@ -177,6 +182,7 @@ app.delete("/:id", async function(req, res){
     }
 });
 
+//Checks to see if user is logged in
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
