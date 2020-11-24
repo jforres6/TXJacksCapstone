@@ -38,11 +38,10 @@ function formatPhoneNumber(phoneNumberString) {
             <div class="container sections">
 
                 <ul class="links">
-                    <li>Home</li>
-                    <li>Employee</li>
-                    <li>News & Events</li>
-                    <li>About</li>
-                    <li>Settings</li>
+                    <li><a href="/home">Employees</a></li>
+                    <li><a href="/add">Add Employees</a></li>
+                    <li><a href="#">Announcements</a></li>
+                    <li><a href="#">Settings</a></li>
                 </ul>
             </div>
         </div>
@@ -83,13 +82,12 @@ function formatPhoneNumber(phoneNumberString) {
 
                 <% Employees.forEach(Employee => { %>    
                 <div class="employee card shadow col-3 mx-4 my-4">
-                    <div class="card-body">
+                    <div class="card-body emp-cards">
                     <h5 class="card-title"><%= Employee.f_name + " " + Employee.l_name %></h5>
                     <p class="card-text">Position: <%= Employee.def_pos %> </p>
-                    <p class="card-text">Phone Number: <%= formatPhoneNumber(Employee.cell_num) %> </p>
-                    <p class="card-text">Email: <%= Employee.email %></p>
-                    <a href="/<%= Employee.id %>" class="btn btn-primary">View Profile</a>
-
+                    <p class="card-text">Phone Number: <br/><%= formatPhoneNumber(Employee.cell_num) %> </p>
+                    <p class="card-text">Email: <br/> <%= Employee.email %></p>
+                        <a href="/<%= Employee.id %>" class=" btn btn-primary">View Profile</a>
                     </div>
                 </div>
                 <% }) %>    

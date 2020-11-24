@@ -36,33 +36,39 @@ function formatPhoneNumber(phoneNumberString) {
             <div class="container sections prof-section">
 
                 <ul class="links">
-                    <li>Home</li>
-                    <li>Employee</li>
-                    <li>News & Events</li>
-                    <li>About</li>
-                    <li>Settings</li>
+                    <li><a href="/home">Employees</a></li>
+                    <li><a href="#">Add Employees</a></li>
+                    <li><a href="#">Announcements</a></li>
+                    <li><a href="#">Settings</a></li>
                 </ul>
 
             </div>
         </div>
 
         <div class="container directory col">
-            <h2 class="text-center">Employee Profile</h1>
+            <h2 class="text-center">Employee Profile</h2>
                     <div class="card shadow col prof">
                         <div class="card-body profile">
-                            <h5 class="card-title"><%= Employees.f_name + " " + Employees.l_name %></h5>
-                            <p class="card-text">ID: <%= Employees.ID %> </p>
-                            <p class="card-text">Nickname: <%= Employees.nickname %> </p>
-                            <p class="card-text">Position: <%= Employees.def_pos %> </p>
-                            <p class="card-text">Phone Number: <%= formatPhoneNumber(Employees.cell_num) %> </p>
+                            <h4 class="card-title"><%= Employees.f_name + " " + Employees.l_name %></h5>
+                            <p class="card-text"><b>ID:</b> <%= Employees.ID %> </p>
+                            <p class="card-text"><b>Nickname:</b> <%= Employees.nickname %> </p>
+                            <p class="card-text"><b>Position:</b> <%= Employees.def_pos %> </p>
+                            <p class="card-text"><b>Phone Number:</b> <%= formatPhoneNumber(Employees.cell_num) %> </p>
                             <% if (Employees.hire_date !== "") { %>
-                            <p class="card-text">Hire Date: <%=formatDate(Employees.hire_date)%> </p>
+                            <p class="card-text"><b>Hire Date:</b> <%=formatDate(Employees.hire_date)%> </p>
                             <% } %>
-                            <p class="card-text">Email: <%= Employees.email %></p>
+                            <p class="card-text"><b>Email:</b> <%= Employees.email %></p>
                             <% if (Employees.active) { %>
-                            <p class="card-text">Employee is active</p>
+                            <p class="card-text"><b>Employee is active</b></p>
+                            <% } %>
+                            <% if (!Employees.active) { %>
+                                <p class="card-text"><b>Employee is not active</b></p>
                             <% } %>
                             <a href="/home" class="btn btn-primary">Back</a>
+                            <a href="/<%= Employees.id %>/modify" class="btn btn-primary prof-btn">Modify</a>
+                            <form method="POST" action="<%= Employees.id %>?_method=DELETE">
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </form>
                         </div>
                     </div> 
                 
