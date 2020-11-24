@@ -60,12 +60,12 @@ function formatPhoneNumber(phoneNumberString) {
                             <% } %>
                             <p class="card-text"><b>Email:</b> <%= Employees.email %></p>
                             <% if (Employees.active) { %>
-                            <p class="card-text"><b>Employee is active</b></p>
+                            <p class="card-text"><b>Employee is: </b> active</p>
                             <% } %>
                             <% if (!Employees.active) { %>
                                 <p class="card-text"><b>Employee is not active</b></p>
                             <% } %>
-
+                            <hr>
                             <p><b>Total sales:</b> 1000<br/>
                             <b>Total tips:</b> 150<br/>
                             <b>Total cash out:</b> -50<br/>
