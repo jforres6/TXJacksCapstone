@@ -2,41 +2,39 @@ const express = require("express");
 const bodyParser = require("body-parser"); 
 const mongoose = require("mongoose");
 const methodOverride = require('method-override');
-const app = express(); 
+const LocalStrategy = require("passport-local");
+const passportLocalMongoose = require("passport-local-mongoose");
+const User = require("./model/User");
+const EmployeeModel = require("./model/Employee");
+const passport = require("passport");
 
-
+const app = express();
 
 mongoose.connect("mongodb+srv://TJUser1:TexasJackMongoDB@cluster0.b04vt.mongodb.net/TESTDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
-
-const Schema = mongoose.Schema;
-
-const employeeSchema = new Schema({
-    ID: Number,
-    f_name: String,
-    l_name: String,
-    nickname: String,
-    def_pos: String,
-    active: Boolean,
-    cell_num: String,
-    hire_date: String,
-    email: String
-});
-
-const EmployeeModel = mongoose.model('EmployeeInformation', employeeSchema, 'EmployeeInformation');
-
-app.set('view engine', 'ejs'); 
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.use(methodOverride('_method'));
+app.use(require("express-session")({ 
+    secret: "Texas Jacks Good BBQ", 
+    resave: false, 
+    saveUninitialized: false
+}));
 
+app.set('view engine', 'ejs'); 
 
-app.get("/", function(req, res){
-    res.render("login");
+app.use(passport.initialize()); 
+app.use(passport.session()); 
+passport.use(new LocalStrategy(User.authenticate())); 
+passport.serializeUser(User.serializeUser()); 
+passport.deserializeUser(User.deserializeUser()); 
+
+app.get("/",function(req,res){
+    res.render("open");
 });
 
 //Display Employees
-app.get("/home", async function(req, res) {
+app.get("/home", isLoggedIn, async function(req, res) {
     if (req.query.empID != null && req.query.empID !== ""){
         const Employee = await EmployeeModel.find({ID: req.query.empID})
         res.render("home", { Employees: Employee});
@@ -49,6 +47,37 @@ app.get("/home", async function(req, res) {
     }
     
 });
+
+app.get("/register", function(req,res){
+    res.render("register");
+})
+
+app.post("/register", function(req, res){
+    User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
+            if(err) {
+                console.log(err);
+                return res.render("register");
+            }
+            passport.authenticate("local") (req, res, function() {
+                res.redirect("/home")
+    });
+});
+});
+
+app.get("/login", function(req, res){
+    res.render("login");
+});
+
+app.post("/login", passport.authenticate("local", { 
+    successRedirect: "/home", 
+    failureRedirect: "/login"
+}));
+
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/");
+})
+
 
 //New Employees
 app.get("/add", function(req,res){
@@ -118,7 +147,7 @@ app.put("/:id", async function(req, res){
         Employees.email = req.body.email;
 
         await Employees.save();
-        res.redirect("/${Employees.id}");
+        res.redirect(`/${Employees.id}`);
     } catch {
         if (Employees == null) {
             res.redirect("home");
@@ -143,12 +172,18 @@ app.delete("/:id", async function(req, res){
             res.redirect("home");
         }
         else {
-            res.redirect("/${Employees.id}");
+            res.redirect(`/${Employees.id}`);
         }
     }
 });
 
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
 
 app.listen(3000, function() {
     console.log("Server started on port 3000");
-})
+});
