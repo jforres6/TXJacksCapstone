@@ -105,3 +105,22 @@ li{
 .prof-btn{
   margin-left: 10px;
 }
+
+.btn-prof{
+  margin: 10px;
+}
+
+hr{
+  border-top: 1px solid black;
+}
+
+.input-group{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 500px;
+}
+
+.input-group-text{
+  background-color: #1275bc;
+  color: #ffffff
+}

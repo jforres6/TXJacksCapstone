@@ -37,9 +37,10 @@ function formatPhoneNumber(phoneNumberString) {
 
                 <ul class="links">
                     <li><a href="/home">Employees</a></li>
-                    <li><a href="#">Add Employees</a></li>
+                    <li><a href="/add">Add Employees</a></li>
                     <li><a href="#">Announcements</a></li>
-                    <li><a href="#">Settings</a></li>
+                    <li><a href="/settings">Settings</a></li>
+                    <li><a href="/logout">Logout</a></li>
                 </ul>
 
             </div>
@@ -59,16 +60,31 @@ function formatPhoneNumber(phoneNumberString) {
                             <% } %>
                             <p class="card-text"><b>Email:</b> <%= Employees.email %></p>
                             <% if (Employees.active) { %>
-                            <p class="card-text"><b>Employee is active</b></p>
+                            <p class="card-text"><b>Employee is: </b> active</p>
                             <% } %>
                             <% if (!Employees.active) { %>
                                 <p class="card-text"><b>Employee is not active</b></p>
                             <% } %>
-                            <a href="/home" class="btn btn-primary">Back</a>
-                            <a href="/<%= Employees.id %>/modify" class="btn btn-primary prof-btn">Modify</a>
+                            <hr>
+                            <p><b>Total sales:</b> 1000<br/>
+                            <b>Total tips:</b> 150<br/>
+                            <b>Total cash out:</b> -50<br/>
+                            <br/>
+                            <b>Total tips out@ 5%:</b> 50$<br/>
+                            <br/>
+                            <b>Taxed amount:</b> 100<br/>
+                            <b>Cash owed:</b> 0<br/>
+                            <b>How much tipout to bar:</b> 10<br/>
+                            <b>How much tipout to busser:</b> 40<br/>
+
+                            </p>
+                            <div class="row">
+                            <a href="/home" class="btn btn-primary btn-prof">Back</a>
+                            <a href="/<%= Employees.id %>/modify" class="btn btn-primary prof-btn btn-prof">Modify</a>
                             <form method="POST" action="<%= Employees.id %>?_method=DELETE">
-                                <button type="submit" class="btn btn-primary">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-prof">Delete</button>
                             </form>
+                            </div>
                         </div>
                     </div> 
                 

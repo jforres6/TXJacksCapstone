@@ -37,9 +37,10 @@ function formatPhoneNumber(phoneNumberString) {
 
                 <ul class="links">
                     <li><a href="/home">Employees</a></li>
-                    <li><a href="#">Add Employees</a></li>
+                    <li><a href="/add">Add Employees</a></li>
                     <li><a href="#">Announcements</a></li>
-                    <li><a href="#">Settings</a></li>
+                    <li><a href="/settings">Settings</a></li>
+                    <li><a href="/logout">Logout</a></li>
                 </ul>
 
             </div>
@@ -52,22 +53,71 @@ function formatPhoneNumber(phoneNumberString) {
                         
                         <div class="card-body profile">
                             <form action="/<%= Employees.id %>?_method=PUT" method="POST">
-                            <p class="card-text"><b>First Name:</b></p>
-                            <input type="text" name = "firstName" value="<%= Employees.f_name %>">
-                            <p class="card-text"><b>Last Name:</b></p>
-                            <input type="text" name = "lastName" value="<%= Employees.l_name %>">
-                            <p class="card-text"><b>ID:</b></p>
-                            <input type="text" name = "empID" value="<%= Employees.ID %>">
-                            <p class="card-text"><b>Nickname:</b></p>
-                            <input type="text" name = "nickname" value="<%= Employees.nickname %>">
-                            <p class="card-text"><b>Position:</b></p>
-                            <input type="text" name = "def_pos" value="<%= Employees.def_pos %>">
-                            <p class="card-text"><b>Phone Number:</b></p>
-                            <input type="text" name = "cell_num" value="<%= Employees.cell_num %>">
-                            <p class="card-text"><b>Hire Date:</b></p>
-                            <input type="text" name = "hire_date" value="<%= Employees.hire_date %>">
-                            <p class="card-text"><b>Email:</b></p>
-                            <input type="text" name = "email" value="<%= Employees.email %>">
+                            
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">First Name</span>
+                                    </div>
+                                    <input name = "firstName" type="text" aria-label="First name" class="form-control" value="<%= Employees.f_name %>">
+                                  </div>
+
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Last Name</span>
+                                </div>
+                                <input type="text" aria-label="Last name" class="form-control" name = "lastName" value="<%= Employees.l_name %>">
+                              </div>
+
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">ID:</span>
+                                </div>
+                                <input type="text" aria-label="ID" class="form-control" name = "empID" value="<%= Employees.ID %>">
+                              </div>
+
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Nickname:</span>
+                                </div>
+                                <input type="text" aria-label="nickname" class="form-control" name = "nickname" value="<%= Employees.nickname %>">
+                              </div>
+
+
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Position:</span>
+                                </div>
+                                <input type="text" aria-label="Position" class="form-control" name = "def_pos" value="<%= Employees.def_pos %>">
+                              </div>
+
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Phone Number:</span>
+                                </div>
+                                <input type="text" aria-label="Phone Number" class="form-control" name = "cell_num" value="<%= Employees.cell_num %>">
+                              </div>
+  
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Hire Date:</span>
+                                </div>
+                                <input type="text" aria-label="Hire Date" class="form-control" name = "hire_date" value="<%= Employees.hire_date %>">
+                              </div>
+
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Email:</span>
+                                </div>
+                                <input type="text" aria-label="Email" class="form-control" name = "email" value="<%= Employees.email %>">
+                              </div>
+
                             <p class="card-text"><b>Employee is:</b></p>
                             <input type="radio" id="active" name = "active" value="true" <% if(Employees.active){ %>
                                  <%="checked" %>
