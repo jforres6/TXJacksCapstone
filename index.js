@@ -7,6 +7,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const User = require("./model/User");
 const EmployeeModel = require("./model/Employee");
 const passport = require("passport");
+const tipoutModel = require("./model/tipoutModel");
 
 const app = express();
 
@@ -38,6 +39,10 @@ app.get("/", function(req, res){
 app.get("/register", function(req,res){
     res.render("register");
 })
+
+app.get("/tipout",function(req,res){
+    res.render("tipout");
+});
 
 //Open home page and display employees
 app.get("/home", isLoggedIn, async function(req, res) {
@@ -165,6 +170,49 @@ app.put("/:id", async function(req, res){
     }
 });
 
+app.get("/:id/tipout", async function(req, res){
+    const Tipout = new tipoutModel({});
+
+    try {
+        const Employees = await EmployeeModel.findById(req.params.id);
+        res.render("tipout", { Employees: Employees, Tipout: Tipout });
+    } catch {
+        console.log(err);
+    }
+});
+
+
+app.put("/:id", async function(req, res){
+    let Employees;
+
+    try {
+        Employees = await EmployeeModel.findById(req.params.id);
+
+        Employees.ID = req.body.empID;
+        Employees.f_name = req.body.firstName;
+        Employees.l_name = req.body.lastName;
+        Employees.nickname = req.body.nickname;
+        Employees.def_pos = req.body.def_pos;
+        Employees.active = req.body.active;
+        Employees.cell_num = req.body.cell_num;
+        Employees.hire_date = req.body.hire_date;
+        Employees.email = req.body.email;
+
+        await Employees.save();
+        res.redirect(`/${Employees.id}`);
+    } catch {
+        if (Employees == null) {
+            res.redirect("home");
+        }
+        else {
+            res.render("modify", {
+                Employees: Employees,
+                errorMessage: "Error Modifying Employee"
+            });
+        }
+    }
+});
+
 //Delete employee
 app.delete("/:id", async function(req, res){
     let Employees
@@ -181,6 +229,8 @@ app.delete("/:id", async function(req, res){
         }
     }
 });
+
+
 
 //Checks to see if user is logged in
 function isLoggedIn(req, res, next){
