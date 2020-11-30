@@ -36,23 +36,51 @@
 
 
         <div class="container directory col">
-            <h2 class="text-center">Employee Profile</h2>
+            <h2 class="text-center">Tip Out</h2>
 
-            <p>Total Sales</p>
-            <input type="number" id="total_sales">
+            <p> Waiter Total Sales From Aloha</p>
+            <input type="number" id="TS_Waiter">
 
-            <p>Total cc_tips</p>
-            <input type="number" id="cc_tips">
+            <p>Bar Tip Out Rate </p>
+            <input type="number" id="TO_Bar_Rate">
 
-            <p>tipout rate</p>
-            <input type="number" id="tipout_rate">
+            <p>Busser Tip Out Rate </p>
+            <input type="number" id="TO_Busser_Rate"> 
 
-            <input type="button" value="Calculate" on_click="calculate_tips()">
+            <p>Bar Tipout </p>
+            <p id="TO_Bar"></p>
 
-            <p>Final Tips</p>
-            <p id="tips"></p> 
+            <p> Busser Tipout </p>
+            <p id="TO_Busser"></p> 
 
-           
+
+
+            <p>Server total Tips</p>
+            <p id="server_total"></p>
+
+            <h4>Declared Tips</h4>
+            <p id="declared_tips"></p>
+
+            <p>CC_Tips</p> 
+            <input type="number" id="CC_Tips"> 
+            <p>CC_Refund</p>
+            <input type="number" id="CC_Refund" value="0.025"> 
+            <p>Cash Auto Grant</p>
+            <input type="number" id="Cash_Auto_Grat">
+            
+            
+
+
+
+
+
+
+            
+
+
+
+
+            <input type="button" value="Calculate" id="calculate_button">   
             
                 
         </div> 
@@ -62,23 +90,94 @@
 
 
     <script>
-        var cc_refund = 2.5; 
-        var total_sales = 0; 
-        var total_cash_owed = 0; 
-        var cash_auto_grat = 0; 
-        bar_tipout_rate = 0; 
+
+        //CC Refund
+        var CC_Refund = 0.025;
+        //Waiter Total Sales from Aloha 
+        var TS_Waiter = 0; 
+        //Total Cash Owed 
+        var TCO = 0; 
+        //Cash Auto Gratuity from Aloha
+        var Cash_Auto_Grat = 0; 
+        //Bar Tip Out 
+        var TO_Bar = 0; 
+        //Bar Tip out Rate 
+        var TO_Bar_Rate = 0; 
+        //Busser Tip Out 
+        var TO_Busser = 0; 
+        //Busser Tip Out Rate 
+        var TO_Busser_Rate = 0; 
+        //CC Tips from Aloha 
+        var CC_Tips= 0;  
+        //Declared tips 
+        var Declared_Tips = 0; 
+        //Waiter Total Cash Owed 
+        var TCO_Waiter = 0; 
         
+    
+
+
+
+ 
         //waiter tip out for bar 
         
-        var total_sales = document.getElementById("total_sales").value;
-        var total_cc_tips = document.getElementById("cc_tips").value;  
         
 
-        function calculate_tips(){
-            var total_tips = total_sales*total_cc_tips;
-            document.getElementById("tips").innerHTML = total_tips;
-        }
+        var calculate_button = document.getElementById("calculate_button");
+
         
+
+        calculate_button.addEventListener('click',function(){
+
+            var TS_Waiter = document.getElementById("TS_Waiter").value;
+            var TO_Bar_Rate = document.getElementById("TO_Bar_Rate").value; 
+
+            var TO_Busser_Rate = document.getElementById("TO_Busser_Rate").value; 
+
+            var TO_Bar = parseFloat(TS_Waiter)*parseFloat(TO_Bar_Rate); 
+            console.log(TS_Waiter);
+            console.log(Number(TS_Waiter));
+            console.log(TO_Bar);
+            
+            document.getElementById("TO_Bar").innerHTML = TO_Bar;
+
+            //waiter tip out for busser 
+
+            var TO_Busser = parseFloat(TS_Waiter)*parseFloat(TO_Busser_Rate); 
+            console.log(TO_Busser); 
+
+            document.getElementById("TO_Busser").innerHTML = TO_Busser;
+
+             //Server Total Tip Out 
+
+            var Server_Total_Tipout = TO_Bar + TO_Busser; 
+            document.getElementById("server_total").innerHTML = Server_Total_Tipout;
+
+            CC_Tips = document.getElementById("CC_Tips").value;
+            CC_Refund = document.getElementById("CC_Refund").value;
+            // var Server_Total_Tipout = document.getElementById("Server_Total_Tipout").value;
+            Cash_Auto_Grat = document.getElementById("Cash_Auto_Grat").value;
+
+            Declared_Tips = parseFloat(CC_Tips)-Server_Total_Tipout-Math.round(parseFloat(CC_Refund)*parseFloat(CC_Tips))+parseFloat(Cash_Auto_Grat);
+            document.getElementById("declared_tips").innerHTML = Declared_Tips;
+        
+
+        });
+
+
+            //Declared Tips 
+
+            function declared_tips(){
+                var CC_Tips = document.getElementById("CC_Tips").value;
+                var Server_Total_Tipout = document.getElementById("Server_Total_Tipout").value;
+                var Cash_Auto_Grat = document.getElementById("Cash_Auto_Grat").value;
+
+
+
+            }
+
+           
+    
 
     </script>
 

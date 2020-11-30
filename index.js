@@ -39,6 +39,13 @@ app.get("/register", function(req,res){
     res.render("register");
 })
 
+//open tipout page 
+
+app.get("/tipout", function(req,res){
+    res.render("tipout");
+})
+
+
 //Open home page and display employees
 app.get("/home", isLoggedIn, async function(req, res) {
     if (req.query.empID != null && req.query.empID !== ""){
