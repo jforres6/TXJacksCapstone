@@ -57,7 +57,7 @@ app.get("/home", isLoggedIn, async function(req, res) {
     
 });
 
-app.post("/home", async function(req, res){
+app.post("/home", isLoggedIn, async function(req, res){
     const Employees = new EmployeeModel({
         ID: req.body.empID,
         f_name: req.body.firstName,
@@ -82,23 +82,23 @@ app.post("/home", async function(req, res){
 });
 
 //Open settings page
-app.get("/settings",function(req,res){
+app.get("/settings", isLoggedIn, function(req,res){
     res.render("settings");
 });
 
 //Open register page
-app.get("/register", function(req,res){
+app.get("/register", isLoggedIn, function(req,res){
     res.render("register");
 })
 
 //open tipout page 
 
-app.get("/tipout", function(req,res){
+app.get("/tipout", isLoggedIn, function(req,res){
     res.render("tipout");
 })
 
 //Process registration
-app.post("/register", function(req, res){
+app.post("/register", isLoggedIn, function(req, res){
     User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
             if(err) {
                 console.log(err);
@@ -111,20 +111,20 @@ app.post("/register", function(req, res){
 });
 
 //Logout of web app
-app.get("/logout", function(req, res){
+app.get("/logout", isLoggedIn, function(req, res){
     req.logout();
     res.redirect("/");
 })
 
 //Add Employees
-app.get("/add", function(req,res){
+app.get("/add", isLoggedIn, function(req,res){
     res.render("add", { Employees: new EmployeeModel()});
 });
 
 
 
 //Employee Profile
-app.get("/:id", async function(req, res) {
+app.get("/:id", isLoggedIn, async function(req, res) {
     try {
         const Employees = await EmployeeModel.findById(req.params.id);
         var Tipout = await TipoutModel.findOne({ID: Employees.ID}).exec();
@@ -135,7 +135,7 @@ app.get("/:id", async function(req, res) {
 });
 
 //Modify employee
-app.get("/:id/modify", async function(req, res){
+app.get("/:id/modify", isLoggedIn, async function(req, res){
     try {
         const Employees = await EmployeeModel.findById(req.params.id);
         res.render("modify", { Employees: Employees });
@@ -145,7 +145,7 @@ app.get("/:id/modify", async function(req, res){
 });
 
 
-app.put("/:id", async function(req, res){
+app.put("/:id", isLoggedIn, async function(req, res){
     let Employees;
 
     try {
@@ -177,7 +177,7 @@ app.put("/:id", async function(req, res){
 });
 
 //Delete employee
-app.delete("/:id", async function(req, res){
+app.delete("/:id", isLoggedIn, async function(req, res){
     let Employees
     try {
         Employees = await EmployeeModel.findById(req.params.id)
@@ -200,7 +200,7 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
-    res.redirect("/login");
+    res.redirect("/");
 }
 
 app.listen(3000, function() {
