@@ -91,6 +91,12 @@ app.get("/register", function(req,res){
     res.render("register");
 })
 
+//open tipout page 
+
+app.get("/tipout", function(req,res){
+    res.render("tipout");
+})
+
 //Process registration
 app.post("/register", function(req, res){
     User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
@@ -187,12 +193,6 @@ app.delete("/:id", async function(req, res){
     }
 });
 
-
-//open tipout page 
-
-app.get("/tipout", function(req,res){
-    res.render("tipout");
-})
 
 
 //Checks to see if user is logged in
