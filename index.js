@@ -6,6 +6,7 @@ const LocalStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
 const User = require("./model/User");
 const EmployeeModel = require("./model/Employee");
+const TipoutModel = require("./model/TipoutModel");
 const passport = require("passport");
 
 const app = express();
@@ -29,22 +30,17 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser()); 
 passport.deserializeUser(User.deserializeUser()); 
 
+
 //Open login page
 app.get("/", function(req, res){
     res.render("login");
 });
 
-//Open register page
-app.get("/register", function(req,res){
-    res.render("register");
-})
-
-//open tipout page 
-
-app.get("/tipout", function(req,res){
-    res.render("tipout");
-})
-
+//Process login
+app.post("/login", passport.authenticate("local", { 
+    successRedirect: "/home", 
+    failureRedirect: "/login"
+}));
 
 //Open home page and display employees
 app.get("/home", isLoggedIn, async function(req, res) {
@@ -59,41 +55,6 @@ app.get("/home", isLoggedIn, async function(req, res) {
         res.render("home", { Employees: Employee});
     }
     
-});
-
-//Open settings page
-app.get("/settings",function(req,res){
-    res.render("settings");
-});
-
-//Logout of web app
-app.get("/logout", function(req, res){
-    req.logout();
-    res.redirect("/");
-})
-
-//Process login
-app.post("/login", passport.authenticate("local", { 
-    successRedirect: "/home", 
-    failureRedirect: "/login"
-}));
-
-//Process registration
-app.post("/register", function(req, res){
-    User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
-            if(err) {
-                console.log(err);
-                return res.render("register");
-            }
-            passport.authenticate("local") (req, res, function() {
-                res.redirect("/home")
-    });
-});
-});
-
-//Add Employees
-app.get("/add", function(req,res){
-    res.render("add", { Employees: new EmployeeModel()});
 });
 
 app.post("/home", async function(req, res){
@@ -120,12 +81,49 @@ app.post("/home", async function(req, res){
     }
 });
 
+//Open settings page
+app.get("/settings",function(req,res){
+    res.render("settings");
+});
+
+//Open register page
+app.get("/register", function(req,res){
+    res.render("register");
+})
+
+//Process registration
+app.post("/register", function(req, res){
+    User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
+            if(err) {
+                console.log(err);
+                return res.render("register");
+            }
+            passport.authenticate("local") (req, res, function() {
+                res.redirect("/home")
+    });
+});
+});
+
+//Logout of web app
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/");
+})
+
+//Add Employees
+app.get("/add", function(req,res){
+    res.render("add", { Employees: new EmployeeModel()});
+});
+
+
+
 //Employee Profile
 app.get("/:id", async function(req, res) {
     try {
-    const Employees = await EmployeeModel.findById(req.params.id);
-        res.render("profile", { Employees: Employees});
-    }catch (err){
+        const Employees = await EmployeeModel.findById(req.params.id);
+        var Tipout = await TipoutModel.findOne({ID: Employees.ID}).exec();
+        res.render("profile", { Employees: Employees, Tipout: Tipout});
+    } catch (err){
         console.log(err);
     }
 });
@@ -188,6 +186,14 @@ app.delete("/:id", async function(req, res){
         }
     }
 });
+
+
+//open tipout page 
+
+app.get("/tipout", function(req,res){
+    res.render("tipout");
+})
+
 
 //Checks to see if user is logged in
 function isLoggedIn(req, res, next){

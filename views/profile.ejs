@@ -67,16 +67,16 @@ function formatPhoneNumber(phoneNumberString) {
                                 <p class="card-text"><b>Employee is not active</b></p>
                             <% } %>
                             <hr>
-                            <p><b>Total sales:</b> 1000<br/>
-                            <b>Total tips:</b> 150<br/>
-                            <b>Total cash out:</b> -50<br/>
+                            <p><b>Total sales: $</b> <%= (Tipout.TS).toFixed(2) %><br/>
+                            <b>Total tips: $</b> <%= (Tipout.Total_Tips).toFixed(2) %><br/>
+                            <b>Total cash out: $</b> <%= (Tipout.TCO).toFixed(2) %><br/>
                             <br/>
-                            <b>Total tips out@ 5%:</b> 50$<br/>
+                            <b>Total tips out@ 5%: $</b> <%= ((Tipout.TS) * 0.05).toFixed(2) %><br/>
                             <br/>
-                            <b>Taxed amount:</b> 100<br/>
-                            <b>Cash owed:</b> 0<br/>
-                            <b>How much tipout to bar:</b> 10<br/>
-                            <b>How much tipout to busser:</b> 40<br/>
+                            <b>Taxed amount: $</b> <%= ((Tipout.TS) * 0.01).toFixed(2) %><br/>
+                            <b>Cash owed: $</b> 0<br/>
+                            <b>How much tipout to bar: $</b> <%= ((Tipout.TCO) * 0.2).toFixed(2) %><br/>
+                            <b>How much tipout to busser: $</b> <%= ((Tipout.TCO) * 0.8).toFixed(2) %><br/>
 
                             </p>
                             <div class="row">
